@@ -1,0 +1,30 @@
+/* Services page hero styles */
+.services-page .services-hero {
+  padding-block: 64px !important;
+}
+
+.services-page .page-hero::before {
+  height: 2px;
+  background: var(--amber);
+}
+
+.services-page .services-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  letter-spacing: -.025em;
+}
+
+.services-page .services-hero .eyebrow {
+  color: var(--amber);
+  font-size: .75rem;
+  margin-bottom: 18px;
+}
+
+.services-page .services-hero .hero-actions {
+  margin: 26px 0 0;
+}
+
+@media (max-width: 640px) {
+.services-page .services-hero {
+    padding-block: 42px !important;
+  }
+}
