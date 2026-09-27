@@ -1,0 +1,116 @@
+/* Responsive styles */
+.site .nav-toggle {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  font-size: 24px;
+}
+
+.site .motion-toggle {
+  min-height: 44px;
+  padding-block: 10px;
+}
+
+.site summary {
+  min-height: 44px;
+  padding-block: 10px;
+}
+
+@media (max-width: 780px) {
+.site .nav-links {
+    max-height: calc(100dvh - 72px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }.site:not(.nav-ready) .nav {
+    flex-wrap: wrap;
+  }.site:not(.nav-ready) .nav-toggle {
+    display: none;
+  }.site:not(.nav-ready) .nav-links {
+    display: flex;
+    position: static;
+    width: 100%;
+    max-height: none;
+    box-shadow: none;
+  }.site input:not([type="checkbox"]):not([type="radio"]) {
+    font-size: 16px;
+  }.site .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }.site .hero-actions .btn {
+    width: 100%;
+    min-height: 48px;
+  }.site .site-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }.site .site-footer {
+    padding-bottom: 40px;
+  }.site:has(.mobile-booking-bar) .site-footer {
+    padding-bottom: 100px;
+  }.site .service-grid p {
+    font-size: .95rem;
+  }
+}
+
+@media (hover: none) {
+.site .card-hover:hover,
+.site .btn:hover,
+.site .interactive-steps .step:hover {
+    transform: none;
+  }
+}
+
+.contact-page .sample-phone {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--teal-deep);
+  padding-block: 10px;
+}
+
+.site .mobile-booking-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--amber);
+  border-radius: 28px;
+  background: var(--amber);
+  color: var(--teal-deep);
+  box-shadow: var(--shadow-lg);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.site .mobile-booking-toggle:focus-visible {
+  outline-color: var(--teal-deep);
+}
+
+.site .mobile-booking-bar:not([hidden]),
+.site .mobile-booking-toggle:not([hidden]) {
+  animation: stepDetailIn 180ms ease both;
+}
+
+@media (min-width: 781px) {
+.site .mobile-booking-toggle {
+    display: none !important;
+  }
+}
+
+@media (max-width: 780px) {
+.site {
+    scroll-padding-bottom: 100px;
+  }.site input,
+.site button,
+.site a {
+    scroll-margin-bottom: 100px;
+  }
+}
+
