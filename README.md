@@ -2,13 +2,15 @@
 
 **Linis on the Go!** — A mobile-first home-cleaning service website created as a school project.
 
-Developed for the **School of Computing, Holy Angel University**, for **6INTROWEB / 6WEBCS**, LinisGo follows the group's website proposal and Figma mockups. It demonstrates how residents of **Fiesta Communities, Xevera Subdivision, and Tabun, Mabalacat City** could explore services, compare prices, and prepare a cleaning request.
+Developed for the **School of Computing, Holy Angel University**, for **6INTROWEB**, LinisGo follows the group's website proposal and Figma mockups. It demonstrates how residents of **Fiesta Communities, Xevera Subdivision, and Tabun, Mabalacat City** could explore services, compare prices, and prepare a cleaning request.
 
 > **School-project demo:** Booking, login, and payment-related screens are frontend demonstrations. The website does not submit appointments, authenticate users, or process payments.
 
 ## Purpose and audience
 
 LinisGo is designed for busy professionals, homeowners, families, tenants, and renters. The project aims to make cleaning services and pricing easy to understand, guide users through choosing services and add-ons, and provide readable layouts for mobile, tablet, and desktop screens.
+
+## Main pages and features
 
 ## Main pages and features
 
@@ -19,6 +21,9 @@ LinisGo is designed for busy professionals, homeowners, families, tenants, and r
 | [Pricing](pricing.html) | Estimates based on home size, cleaning type, and extras; estimated duration and downpayment breakdown; selections carried into Booking. |
 | [Booking](book.html) | Required-field validation, cleaning-plan estimates, and an editable request summary. |
 | [Contact](contact.html) | Inquiry message drafts that users can copy, plus a link to the owner-provided Facebook profile. |
+| [Login](login.html) | Client login demo using `js/auth.js` and `css/auth.css`; validates required fields and email formatting before showing a demo success alert and resetting the form. |
+| [Register](register.html) | Account registration demo with client-side checks for email format, password length, and matching passwords; resets upon submission without saving data. |
+
 
 Shared features include responsive navigation, a mobile booking bar, and a demonstration Client Login dialog.
 
