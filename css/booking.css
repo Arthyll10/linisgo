@@ -1,0 +1,30 @@
+/* Booking page hero styles */
+.booking-page .page-hero::before {
+  height: 2px;
+  background: var(--amber);
+}
+
+.booking-page .booking-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  letter-spacing: -.025em;
+}
+
+.booking-page .booking-hero .eyebrow {
+  color: var(--amber);
+  font-size: .75rem;
+  margin-bottom: 18px;
+}
+
+.booking-page .booking-hero {
+  padding-block: 60px !important;
+}
+
+.booking-page .booking-hero .hero-actions {
+  margin: 26px 0 0;
+}
+
+@media (max-width: 480px) {
+.booking-page .booking-hero {
+    padding-block: 42px !important;
+  }
+}

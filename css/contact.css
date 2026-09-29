@@ -1,0 +1,30 @@
+/* Contact page hero styles */
+.contact-page .page-hero::before {
+  height: 2px;
+  background: var(--amber);
+}
+
+.contact-page .contact-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  letter-spacing: -.025em;
+}
+
+.contact-page .contact-hero .eyebrow {
+  color: var(--amber);
+  font-size: .75rem;
+  margin-bottom: 18px;
+}
+
+.contact-page .contact-hero .hero-actions {
+  margin: 26px 0 0;
+}
+
+.contact-page .contact-hero {
+  padding-block: 60px !important;
+}
+
+@media (max-width: 780px) {
+.contact-page .contact-hero {
+    padding-block: 42px !important;
+  }
+}

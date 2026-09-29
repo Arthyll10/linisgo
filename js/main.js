@@ -124,31 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     reveal(50);
   }
 
-  // Client login modal
-  // Open and close the login box. It’s only a preview for now, not a working sign-in.
-  const dialog = document.querySelector('#client-login');
-  let opener;
-  document.querySelectorAll('[data-login-open]').forEach(button => {
-    button.hidden = false;
-    button.addEventListener('click', () => {
-      opener = button;
-      dialog.showModal();
-      document.body.classList.add('modal-open');
-    });
-  });
-  dialog?.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
-  // A click outside closes the box. Clicking the form itself should leave it open.
-  dialog?.addEventListener('click', event => {
-    const rect = dialog.getBoundingClientRect();
-    if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
-  });
-  dialog?.addEventListener('close', () => {
-    document.body.classList.remove('modal-open');
-    // The mobile menu is closed now, so send keyboard focus back to its button.
-    (mobile.matches ? toggle : opener)?.focus();
-  });
-  document.querySelector('#login-form')?.addEventListener('submit', event => event.preventDefault());
-
   // Booking steps
   // Show the explanation for the chosen step and move the progress line along.
   const stepButtons = Array.from(document.querySelectorAll('[data-step]'));
@@ -177,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Mobile booking button
-  // The × tucks the bar away; the small Book button brings it back.
+  // The × tucks the bar away; the small Book button brings it back
   const quickAction = document.querySelector('.mobile-booking-bar');
   const reopenBooking = document.querySelector('.mobile-booking-toggle');
   if (quickAction && reopenBooking) {

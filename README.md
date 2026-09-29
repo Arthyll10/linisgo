@@ -30,7 +30,7 @@ Shared features include responsive navigation, a mobile booking bar, and a demon
 - **Google Fonts:** Outfit for headings and Plus Jakarta Sans for body text.
 - **Figma** for the initial layouts and visual references.
 
-The project uses plain HTML, CSS, and JavaScript, with no framework, package installation, or build step. Page files are in the project root, styles are in `styles.css` and `css/`, interactions are in `main.js`, and images are in `images/`.
+The project uses plain HTML, CSS, and JavaScript, with no framework, package installation, or build step. Page files are in the project root, styles are in `styles.css` and `css/`, interactions are in `js/main.js`, and images are in `images/`.
 
 ## How to run locally
 
@@ -83,3 +83,7 @@ Based on **“LinisGo — Linis on the Go!”**, the August 2026 website proposa
 
 - **Proposal document:** `Canlas,Cunanan,Tique-Website-Proposal-Figma-Mockup.docx` (provided separately).
 - **Design reference:** [LinisGo on Figma](https://www.figma.com/design/Mr5wPBOyriSxJUZF0tSAjw/LinisGo?node-id=0-1).
+
+## Demo login and registration
+
+Open `login.html` or choose Client Login. Use `register.html` to try registration. These pages use plain HTML, `css/auth.css`, and `js/auth.js`. Required fields, email format, password length, and matching registration passwords are checked. Success shows an alert and clears the form. No account is created, authenticated, or saved; no form data is sent to a server. Use sample details.

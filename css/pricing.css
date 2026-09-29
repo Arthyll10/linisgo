@@ -1,0 +1,25 @@
+/* Pricing page hero styles */
+.pricing-page .page-hero::before {
+  height: 2px;
+  background: var(--amber);
+}
+
+.pricing-page .pricing-hero .eyebrow {
+  color: var(--amber);
+  font-size: .75rem;
+  margin-bottom: 18px;
+}
+
+.pricing-page .pricing-hero {
+  padding-block: 60px !important;
+}
+
+.pricing-page .pricing-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.15rem);
+  letter-spacing: -.025em;
+  max-width: 700px;
+}
+
+.pricing-page .pricing-hero .hero-actions {
+  margin: 26px 0 0;
+}
