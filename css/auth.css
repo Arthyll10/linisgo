@@ -212,8 +212,21 @@
   line-height: 1.6;
 }
 
+.auth-password-row {
+  row-gap: 8px;
+}
+
+.auth-password-row > .field-help {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
 .auth-card button {
   margin-top: 12px;
+}
+
+.auth-card form[data-mode="register"] > #auth-submit {
+  margin-top: 16px;
 }
 
 .auth-card button:disabled {
@@ -267,6 +280,14 @@
 }
 
 @media (max-width: 780px) {
+  .auth-password-row > .field-help {
+    order: 1;
+  }
+
+  .auth-password-row > .auth-field:last-of-type {
+    order: 2;
+  }
+
   .auth-main {
     padding: 16px 0 24px;
   }

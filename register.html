@@ -6,7 +6,7 @@
   <title>Register — LinisGo Demo</title>
   <meta name="description" content="Try the LinisGo demo registration form. No account data is saved.">
   <link rel="stylesheet" href="css/styles.css?v=mobile-layout">
-  <link rel="stylesheet" href="css/auth.css?v=compact-brand">
+  <link rel="stylesheet" href="css/auth.css?v=password-hint">
   <script src="js/main.js" defer></script>
   <script src="js/auth.js?v=register-to-login" defer></script>
 </head>
@@ -54,16 +54,16 @@
           <input id="email" type="email" autocomplete="off" maxlength="254" placeholder="you@example.com" required>
         </div>
       </div>
-      <div class="auth-fields-row">
+      <div class="auth-fields-row auth-password-row">
         <div class="auth-field">
           <label for="password">Password</label>
           <input id="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required>
-          <p class="field-help" id="password-help">Use at least 8 characters. For this demo, use a made-up password.</p>
         </div>
         <div class="auth-field">
           <label for="confirm-password">Confirm password</label>
           <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
         </div>
+        <p class="field-help" id="password-help">Use at least 8 characters. For this demo, use a made-up password.</p>
       </div>
       <button class="btn btn-teal btn-block" type="submit" id="auth-submit" disabled>Register</button>
       </form>
