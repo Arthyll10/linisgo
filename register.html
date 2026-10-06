@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register — LinisGo Demo</title>
   <meta name="description" content="Try the LinisGo demo registration form. No account data is saved.">
-  <link rel="stylesheet" href="css/styles.css?v=demo-auth">
-  <link rel="stylesheet" href="css/auth.css?v=popup-motion">
+  <link rel="stylesheet" href="css/styles.css?v=mobile-layout">
+  <link rel="stylesheet" href="css/auth.css?v=compact-brand">
   <script src="js/main.js" defer></script>
   <script src="js/auth.js?v=register-to-login" defer></script>
 </head>
@@ -32,7 +32,10 @@
 <main id="main" class="auth-main">
   <div class="container auth-layout">
     <div class="auth-intro">
-      <p class="auth-tagline">Linis on the Go!</p>
+      <div class="auth-brand">
+        <span class="auth-logo" aria-hidden="true"><img src="images/linisgo-logo.png" alt="" width="676" height="369"></span>
+        <span class="auth-brand-text"><span class="auth-brand-name">Linis<span>Go</span></span><span class="auth-brand-tagline">Linis on the Go!</span></span>
+      </div>
       <h1>Create your account</h1>
       <p>A fresher home starts with a simple hello.</p>
       <p class="auth-notice" id="demo-notice"><strong>Demo only.</strong> Try the form with sample details. Nothing is sent or saved, and no real account is created or checked.</p>
@@ -41,15 +44,27 @@
     <div class="auth-card">
       <h2>Register</h2>
       <form id="auth-form" data-mode="register" autocomplete="off" aria-describedby="demo-notice">
-      <label for="full-name">Full name</label>
-      <input id="full-name" type="text" autocomplete="off" maxlength="100" required>
-      <label for="email">Email address</label>
-      <input id="email" type="email" autocomplete="off" maxlength="254" placeholder="you@example.com" required>
-      <label for="password">Password</label>
-      <input id="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required>
-      <p class="field-help" id="password-help">Use at least 8 characters. For this demo, use a made-up password.</p>
-      <label for="confirm-password">Confirm password</label>
-      <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+      <div class="auth-fields-row">
+        <div class="auth-field">
+          <label for="full-name">Full name</label>
+          <input id="full-name" type="text" autocomplete="off" maxlength="100" required>
+        </div>
+        <div class="auth-field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" autocomplete="off" maxlength="254" placeholder="you@example.com" required>
+        </div>
+      </div>
+      <div class="auth-fields-row">
+        <div class="auth-field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required>
+          <p class="field-help" id="password-help">Use at least 8 characters. For this demo, use a made-up password.</p>
+        </div>
+        <div class="auth-field">
+          <label for="confirm-password">Confirm password</label>
+          <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+        </div>
+      </div>
       <button class="btn btn-teal btn-block" type="submit" id="auth-submit" disabled>Register</button>
       </form>
       <noscript><p>Enable JavaScript to try this demo. The form cannot be submitted without it.</p></noscript>

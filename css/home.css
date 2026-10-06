@@ -368,10 +368,55 @@
   }
 }
 
-@media (max-width: 560px) {
-.site .step-detail {
-    padding: 22px;
-    min-height: 245px;
+/* Keep the controls beside the explanation on phone-sized screens. */
+@media (max-width: 780px) {
+  .site .interactive-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+    scroll-margin-top: 104px;
+  }
+
+  .site .interactive-steps .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 100px;
+    padding: 12px 4px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .site .interactive-steps .step-num {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    margin: 0;
+    font-size: .85rem;
+  }
+
+  .site .interactive-steps .step-title {
+    margin: 0;
+    font-size: clamp(.65rem, 2.7vw, .85rem);
+    line-height: 1.35;
+  }
+
+  .site .interactive-steps .step-summary {
+    display: none;
+  }
+
+  .site .booking-steps .step-progress {
+    margin: 14px 0;
+  }
+
+  .site .booking-steps .step-detail {
+    padding: 20px;
+    min-height: 190px;
+    scroll-margin-top: 104px;
+  }
+
+  .site .booking-steps .step-detail h3 {
+    font-size: 1.15rem;
   }
 }
-

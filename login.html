@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login — LinisGo Demo</title>
   <meta name="description" content="Try the LinisGo demo login form. No account data is saved.">
-  <link rel="stylesheet" href="css/styles.css?v=demo-auth">
-  <link rel="stylesheet" href="css/auth.css?v=popup-motion">
+  <link rel="stylesheet" href="css/styles.css?v=mobile-layout">
+  <link rel="stylesheet" href="css/auth.css?v=compact-brand">
   <script src="js/main.js" defer></script>
   <script src="js/auth.js?v=register-to-login" defer></script>
 </head>
@@ -32,7 +32,10 @@
 <main id="main" class="auth-main">
   <div class="container auth-layout">
     <div class="auth-intro">
-      <p class="auth-tagline">Linis on the Go!</p>
+      <div class="auth-brand">
+        <span class="auth-logo" aria-hidden="true"><img src="images/linisgo-logo.png" alt="" width="676" height="369"></span>
+        <span class="auth-brand-text"><span class="auth-brand-name">Linis<span>Go</span></span><span class="auth-brand-tagline">Linis on the Go!</span></span>
+      </div>
       <h1>Welcome back.</h1>
       <p>A little less mess. A little more time for you.</p>
       <p class="auth-notice" id="demo-notice"><strong>Demo only.</strong> Try the form with sample details. Nothing is sent or saved, and no real account is created or checked.</p>

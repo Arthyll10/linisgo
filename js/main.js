@@ -436,10 +436,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepButtons = Array.from(document.querySelectorAll('[data-step]'));
   const stepPanels = document.querySelectorAll('[data-step-panel]');
   const stepProgress = document.querySelector('.step-progress span');
+  const stepControls = document.querySelector('.interactive-steps');
+  const stepDetail = document.querySelector('#step-detail');
   function selectStep(index) {
     stepButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
     stepPanels.forEach((panel, i) => { panel.hidden = i !== index; });
     if (stepProgress) stepProgress.style.transform = `scaleX(${(index + 1) / stepButtons.length})`;
+    if (mobile.matches && stepControls && stepDetail) {
+      const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height || 0;
+      const bookingBar = document.querySelector('.mobile-booking-bar');
+      const barHeight = bookingBar && !bookingBar.hidden ? bookingBar.getBoundingClientRect().height + 24 : 0;
+      const visibleBottom = window.innerHeight - barHeight;
+      // Move before the next frame so the panel animation starts in view.
+      if (stepControls.getBoundingClientRect().top < headerHeight || stepDetail.getBoundingClientRect().bottom > visibleBottom) {
+        stepControls.scrollIntoView({ behavior: 'instant', block: 'start' });
+        // Very short screens may only have room for the explanation.
+        if (stepDetail.getBoundingClientRect().bottom > visibleBottom) {
+          stepDetail.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }
+    }
   }
   stepButtons.forEach((button, index) => {
     button.addEventListener('click', () => selectStep(index));
@@ -453,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (next !== undefined) {
         event.preventDefault();
         selectStep(next);
-        stepButtons[next].focus();
+        stepButtons[next].focus({ preventScroll: true });
       }
     });
   });

@@ -2,7 +2,7 @@
 @import url("base.css?v=demo-auth");
 @import url("components.css");
 @import url("shared.css");
-@import url("home.css");
+@import url("home.css?v=mobile-steps");
 @import url("services.css");
 @import url("pricing.css");
 @import url("contact.css");
