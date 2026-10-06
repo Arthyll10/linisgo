@@ -1,16 +1,8 @@
-/* Pricing page hero styles */
-.pricing-page .page-hero::before {
-  height: 2px;
-  background: var(--amber);
-}
+/* Pricing */
 
-.pricing-page .pricing-hero .eyebrow {
-  color: var(--amber);
-  font-size: .75rem;
-  margin-bottom: 18px;
-}
-
-.pricing-page .pricing-hero {
+.pricing-page .pricing-hero,
+.contact-page .contact-hero,
+.booking-page .booking-hero {
   padding-block: 60px !important;
 }
 
@@ -20,6 +12,257 @@
   max-width: 700px;
 }
 
-.pricing-page .pricing-hero .hero-actions {
-  margin: 26px 0 0;
+.pricing-page .pricing-hero>.container>p:last-child {
+  max-width: 650px;
 }
+
+.pricing-page .estimate-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.pricing-page .estimate-form {
+  padding: 32px;
+}
+
+.pricing-page .estimate-form fieldset {
+  margin: 0 0 28px;
+}
+
+.pricing-page .estimate-form legend {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--teal-deep);
+  margin-bottom: 18px;
+}
+
+.pricing-page .estimate-form legend>span {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: .75rem;
+  margin-right: 8px;
+  background: var(--teal-light);
+  color: var(--teal);
+  border-radius: 8px;
+}
+
+.pricing-page .estimate-form label[for] {
+  display: block;
+  font-size: .8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.pricing-page .estimate-form select {
+  font: inherit;
+  width: 100%;
+  min-height: 48px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+
+.pricing-page .clean-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pricing-page .clean-options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.pricing-page .clean-options label:has(input:checked) {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
+
+.pricing-page .estimate-form input {
+  accent-color: var(--teal);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.pricing-page .estimate-form strong {
+  display: block;
+  font-size: .85rem;
+  color: var(--teal-deep);
+}
+
+.pricing-page .estimate-form small {
+  display: block;
+  font-size: .73rem;
+  color: var(--ink-soft);
+  margin-top: 3px;
+}
+
+.pricing-page .estimate-services-link {
+  display: inline-block;
+  font-size: .78rem;
+  color: var(--teal);
+  margin-top: 14px;
+  text-underline-offset: 4px;
+}
+
+.pricing-page .estimate-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.pricing-page .estimate-option>span {
+  flex: 1;
+}
+
+.pricing-page .estimate-option>b {
+  font-size: .82rem;
+  color: var(--teal);
+  white-space: nowrap;
+}
+
+.pricing-page .estimate-reset {
+  border: 0;
+  background: transparent;
+  color: var(--teal);
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0 8px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: .8rem;
+}
+
+.pricing-page .estimate-summary {
+  position: sticky;
+  top: 104px;
+  padding: 30px;
+  background: var(--teal-deep);
+  color: var(--cream);
+  border-color: var(--teal);
+}
+
+.pricing-page .estimate-summary .section-label {
+  color: var(--amber);
+}
+
+.pricing-page .estimate-selection {
+  font-size: .88rem;
+  margin: 10px 0;
+}
+
+.pricing-page .estimate-total {
+  font-family: var(--font-heading);
+  color: var(--cream);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.pricing-page .estimate-duration,
+.pricing-page .estimate-custom-note {
+  font-size: .8rem;
+}
+
+.pricing-page .estimate-breakdown {
+  border-block: 1px solid var(--glass-border);
+  padding: 14px 0;
+  margin: 22px 0;
+}
+
+.pricing-page .estimate-breakdown>div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  font-size: .82rem;
+}
+
+.pricing-page .estimate-breakdown dd {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.pricing-page .estimate-payment {
+  display: grid;
+  gap: 12px;
+  font-size: .78rem;
+  margin-bottom: 24px;
+}
+
+.pricing-page .estimate-payment span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pricing-page .estimate-payment strong {
+  color: var(--amber);
+}
+
+.pricing-page .estimate-disclaimer {
+  font-size: .7rem;
+  line-height: 1.7;
+  margin: 16px 0 0;
+}
+
+.pricing-page .price-table .price {
+  text-align: right;
+}
+
+.pricing-page .booking-cta {
+  text-align: center;
+}
+
+.pricing-page .rush-note {
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+@media (max-width: 800px) {
+  .pricing-page .estimate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-page .estimate-summary {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-page .estimate-form,
+  .pricing-page .estimate-summary {
+    padding: 22px;
+  }
+
+  .pricing-page .clean-options {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-page .estimate-form legend {
+    font-size: 1rem;
+  }
+}
+
+.pricing-page .estimate-total {
+  animation: stepDetailIn 220ms ease both;
+}
+

@@ -455,72 +455,101 @@
 }
 
 @media (min-width: 781px) {
-.site .mobile-booking-bar {
+  .site .mobile-booking-bar {
     display: none !important;
   }
 }
 
 @media (max-width: 900px) {
-.site .hero-split {
+  .site .hero-split {
     gap: 28px;
-  }.site .hero-image-card img {
+  }
+
+  .site .hero-image-card img {
     height: 380px;
-  }.site .results-grid {
+  }
+
+  .site .results-grid {
     gap: 32px;
   }
 }
 
 @media (max-width: 780px) {
-.site .hero {
+  .site .hero {
     padding: 48px 24px;
-  }.site .hero-split,
-.site .results-grid {
+  }
+
+  .site .hero-split,
+  .site .results-grid {
     grid-template-columns: 1fr;
-  }.site .hero-image-card img {
+  }
+
+  .site .hero-image-card img {
     height: 320px;
-  }.site .login-trigger {
+  }
+
+  .site .login-trigger {
     width: 100%;
     justify-content: flex-start;
     min-height: 44px;
-  }.site .trust-strip .container {
+  }
+
+  .site .trust-strip .container {
     justify-content: flex-start;
     gap: 10px 24px;
-  }.site section:not(.hero):not(.promo) {
+  }
+
+  .site section:not(.hero):not(.promo) {
     padding-block: 52px;
-  }.site .site-footer {
+  }
+
+  .site .site-footer {
     padding-bottom: 100px;
-  }.site .nav-links a {
+  }
+
+  .site .nav-links a {
     display: flex;
-  }.site .nav-links.open {
+  }
+
+  .site .nav-links.open {
     animation: none;
   }
 }
 
 @media (max-width: 560px) {
-.site .hero h1 {
+  .site .hero h1 {
     font-size: 2.6rem;
-  }.site .hero-actions {
+  }
+
+  .site .hero-actions {
     gap: 10px;
-  }.site .hero-actions .btn {
+  }
+
+  .site .hero-actions .btn {
     padding-inline: 18px;
     font-size: .85rem;
-  }.site .step {
+  }
+
+  .site .step {
     text-align: left;
     display: grid;
     grid-template-columns: 38px 1fr;
     gap: 0 14px;
-  }.site .step-num {
+  }
+
+  .site .step-num {
     grid-row: span 2;
     margin: 0;
-  }.site dialog {
+  }
+
+  .site dialog {
     padding: 32px 22px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-.site [data-reveal].reveal-pending {
+  .site [data-reveal].reveal-pending {
     opacity: 1;
     transform: none;
   }
 }
-
