@@ -60,7 +60,7 @@
 }
 
 .auth-brand-name > span {
-  color: var(--amber-dark);
+  color: var(--amber);
 }
 
 .auth-brand-tagline {
