@@ -6,16 +6,6 @@
   font-size: 24px;
 }
 
-.site .motion-toggle {
-  min-height: 44px;
-  padding-block: 10px;
-}
-
-.site summary {
-  min-height: 44px;
-  padding-block: 10px;
-}
-
 .booking-page .booking-extra-options label {
   display: flex !important;
   align-items: center;
@@ -74,11 +64,11 @@
   }
 
   .site input:not([type="checkbox"]):not([type="radio"]),
-  .site select,
-  .site textarea,
-  .booking-page #quoteForm input:not([type="checkbox"]):not([type="radio"]),
-  .booking-page #quoteForm select,
-  .booking-page #quoteForm textarea {
+.site select,
+.site textarea,
+.booking-page #quoteForm input:not([type="checkbox"]):not([type="radio"]),
+.booking-page #quoteForm select,
+.booking-page #quoteForm textarea {
     font-size: 16px;
   }
 
@@ -107,31 +97,23 @@
     padding-bottom: 100px;
   }
 
-  .site .service-grid p,
-  .services-page .service-description,
-  .services-page .service-inclusions li {
+  .site .service-grid p:not(.section-label):not(.service-price):not(.service-duration),
+.services-page .service-description,
+.services-page .service-inclusions li {
     font-size: .95rem;
   }
 }
 
 @media (hover: none) {
   .site .card-hover:hover,
-  .site .btn:hover,
-  .site .interactive-steps .step:hover {
+.site .btn:hover,
+.site .interactive-steps .step:hover {
     transform: none;
   }
 
   .services-page .service-detail-card:hover .card-image {
     transform: none;
   }
-}
-
-.contact-page .sample-phone {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--teal-deep);
-  padding-block: 10px;
 }
 
 .booking-page .booking-success {
@@ -278,10 +260,17 @@
   }
 
   .site input,
-  .site select,
-  .site textarea,
-  .site button,
-  .site a {
+.site select,
+.site textarea,
+.site button,
+.site a {
     scroll-margin-bottom: 100px;
   }
+}
+@media (max-width: 780px) {
+  .site .price-table td { align-items: flex-start; gap: 16px; font-size: .9rem; }
+}
+
+@media (max-width: 780px) {
+  .site .price-table td::before { flex-shrink: 0; }
 }

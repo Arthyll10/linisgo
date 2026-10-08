@@ -62,13 +62,13 @@ if (authForm) {
     if (!authForm.reportValidity()) return;
 
     const message = authForm.dataset.mode === 'register'
-      ? 'Registered! Demo only — no account was created or saved.'
-      : 'Logged in! Demo only — no account was checked or signed in.';
+      ? 'Registration demo complete. Demo only — no account was created or saved.'
+      : 'Login demo complete. Demo only — no account was checked or signed in.';
 
     // Clear the entered details after the demo
     authForm.reset();
     status.textContent = message;
-    popupTitle.textContent = authForm.dataset.mode === 'register' ? 'Registered!' : 'Logged in!';
+    popupTitle.textContent = authForm.dataset.mode === 'register' ? 'Registration demo complete' : 'Login demo complete';
     popupMessage.textContent = authForm.dataset.mode === 'register'
       ? 'Registration demo complete. No account was created or saved.'
       : 'Login demo complete. No account was checked or signed in.';

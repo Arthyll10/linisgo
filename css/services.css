@@ -1,36 +1,4 @@
 /* Services */
-.services-page .services-hero {
-  padding-block: 64px !important;
-}
-
-.services-page .page-hero::before,
-.pricing-page .page-hero::before,
-.contact-page .page-hero::before,
-.booking-page .page-hero::before {
-  height: 2px;
-  background: var(--amber);
-}
-
-.services-page .services-hero h1,
-.contact-page .contact-hero h1,
-.booking-page .booking-hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.25rem);
-  letter-spacing: -.025em;
-}
-
-.services-page .services-hero .eyebrow,
-.pricing-page .pricing-hero .eyebrow,
-.contact-page .contact-hero .eyebrow,
-.booking-page .booking-hero .eyebrow {
-  color: var(--amber);
-  font-size: .75rem;
-  margin-bottom: 18px;
-}
-
-.services-page .services-hero .hero-actions,
-.contact-page .contact-hero .hero-actions {
-  margin: 26px 0 0;
-}
 
 .services-page .services-section-top {
   display: flex;
@@ -121,7 +89,7 @@
 }
 
 .services-page .service-detail-card .card-body {
-  padding: 28px;
+  padding: var(--card-padding);
 }
 
 .services-page .service-kicker {
@@ -159,7 +127,7 @@
 }
 
 .services-page .service-inclusions li::before {
-  content: '';
+  content: "";
   flex: 0 0 5px;
   height: 5px;
   border-radius: 50%;
@@ -186,11 +154,6 @@
   color: var(--teal);
   text-underline-offset: 4px;
   font-weight: 600;
-}
-
-.services-page .btn-soft {
-  background: var(--teal-light);
-  color: var(--teal-deep);
 }
 
 .services-page .equipment-section,
@@ -223,45 +186,11 @@
   margin: 0 0 8px;
 }
 
-.services-page .equipment-help p,
 .booking-page .booking-summary p {
   font-size: .85rem;
-}
-
-.services-page .equipment-help a {
-  display: inline-block;
-  margin-top: 16px;
-  font-size: .8rem;
-  font-weight: 700;
-  color: var(--teal);
-  text-underline-offset: 4px;
-}
-
-.services-page .equipment-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-}
-
-.services-page .equipment-heading h3 {
-  font-size: 1.15rem;
-  margin: 0;
-}
-
-.services-page .equipment-reset {
-  background: transparent;
-  border: 0;
-  color: var(--teal);
-  text-decoration: underline;
-  cursor: pointer;
-  min-height: 44px;
-}
-
-.services-page .equipment-status {
-  font-size: .78rem;
-  color: var(--teal);
-  margin: 12px 0 18px;
+}.services-page .equipment-help p {
+  font-size: .9rem;
+  line-height: 1.7;
 }
 
 .services-page .equipment-list {
@@ -275,53 +204,9 @@
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  font-size: .8rem;
+  font-size: .9rem;
   color: var(--ink-soft);
-  cursor: pointer;
-}
-
-.services-page .equipment-item input {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  accent-color: var(--teal);
-}
-
-.services-page .equipment-item:has(input:checked),
-.contact-page .area-details a {
-  color: var(--teal);
-}
-
-.services-page .equipment-note {
-  font-size: .75rem;
-  color: var(--ink-soft);
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
-  margin: 20px 0 0;
-}
-
-.services-page .faq-list,
-.contact-page .faq-list {
-  border-top: 1px solid var(--line);
-}
-
-.services-page .faq-list details {
-  border-bottom: 1px solid var(--line);
-  padding: 20px 0;
-}
-
-.services-page .faq-list summary,
-.contact-page .faq-list summary {
-  font-size: 1rem;
-  min-height: 30px;
-}
-
-.services-page .faq-list p {
-  color: var(--ink-soft);
-  font-size: .92rem;
-  max-width: 780px;
-  margin-bottom: 0;
-  animation: stepDetailIn 250ms ease;
+  cursor: default;
 }
 
 .services-page .booking-cta {
@@ -360,10 +245,6 @@
     grid-template-columns: 1fr;
   }
 
-  .services-page .services-hero {
-    padding-block: 42px !important;
-  }
-
   .services-page .service-filters {
     width: 100%;
   }
@@ -374,3 +255,20 @@
   }
 }
 
+.site .equipment-list { list-style: none; padding: 0; margin: 18px 0 0; }
+
+.site .equipment-item { cursor: default; font-size: .9rem; }
+
+.site .fixed-check { flex: 0 0 26px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--teal); background: var(--teal-light); font-weight: 700; }
+
+.site .equipment-help p { font-size: .9rem; }
+
+.services-page .service-catalog { display: grid; gap: 32px; }
+
+
+.services-page .catalog-note { margin: 28px 0 0; }
+
+.services-page .service-detail-card .disclosure { border-top: 1px solid var(--line); margin-top: 20px; margin-bottom: 24px; }
+.services-page .service-inclusions { margin: 0; }
+.services-page .equipment-card h3 { font-size: 1.25rem; margin: 0 0 22px; }
+.services-page .service-filters button:not([aria-pressed="true"]):hover { color: var(--teal-deep); background: var(--teal-light); }

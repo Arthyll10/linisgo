@@ -1,6 +1,6 @@
 /* LinisGo: theme, shared components and page layouts. */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 :root {
   --teal-deep: #12433d;
@@ -19,14 +19,20 @@
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --shadow-sm: 0 2px 8px rgba(18, 67, 61, 0.04);
   --shadow-md: 0 4px 16px rgba(18, 67, 61, 0.08), 0 1px 3px rgba(18, 67, 61, 0.04);
   --shadow-lg: 0 12px 32px rgba(18, 67, 61, 0.12), 0 2px 6px rgba(18, 67, 61, 0.04);
   --shadow-hover: 0 16px 36px rgba(18, 67, 61, 0.14), 0 4px 12px rgba(18, 67, 61, 0.06);
   --glass-bg: rgba(18, 67, 61, 0.88);
   --glass-border: rgba(255, 255, 255, 0.12);
+  --space-section: clamp(3.25rem, 6vw, 5.5rem);
+  --card-padding: 28px;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --duration-fast: 180ms;
+  --duration-ui: 280ms;
+  --duration-enter: 760ms;
 }
 
 * {
@@ -154,7 +160,7 @@ svg {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.93rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease, transform var(--duration-ui) var(--ease-out);
 }
 
 .nav-links a:hover {

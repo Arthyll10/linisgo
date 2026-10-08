@@ -1,0 +1,70 @@
+/* One motion language for entrances, disclosure controls and hover states. */
+@keyframes heroEnter {
+  from { opacity: 0; translate: 0 18px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site .hero-copy > * {
+    animation: heroEnter var(--duration-enter) var(--ease-out) both;
+    animation-delay: var(--entry-delay, 0ms);
+  }
+  .site .hero-copy > :nth-child(2) { --entry-delay: 80ms; }
+  .site .hero-copy > :nth-child(3) { --entry-delay: 160ms; }
+  .site .hero-copy > :nth-child(4) { --entry-delay: 220ms; }
+  .site .hero-copy > :nth-child(5) { --entry-delay: 280ms; }
+  .site .hero-copy > :nth-child(6) { --entry-delay: 340ms; }
+  .site .hero-copy > :nth-child(7) { --entry-delay: 400ms; }
+  .site .hero-visual, .site .auth-card {
+    animation: heroEnter 1000ms var(--ease-out) 180ms both;
+  }
+}
+
+/* Independent translate leaves each card's hover transform uninterrupted. */
+.site [data-reveal] {
+  transition: opacity 650ms var(--ease-out) var(--reveal-delay, 0ms),
+    translate 650ms var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--duration-ui) var(--ease-out),
+    box-shadow var(--duration-ui) ease, border-color var(--duration-ui) ease,
+    background-color var(--duration-fast) ease;
+}
+.site [data-reveal].reveal-pending { opacity: 0; translate: 0 18px; }
+.site [data-reveal="slide"].reveal-pending { translate: 20px 0; }
+
+.site .disclosure-content { transition: opacity 180ms ease; }
+.site .disclosure[data-expanded="false"] .disclosure-content { opacity: 0; }
+.site .disclosure[data-expanded="true"] .disclosure-content { opacity: 1; }
+
+.site .service-link > span, .site .btn > span[aria-hidden="true"] {
+  transition: transform var(--duration-ui) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site .service-card:hover, .site .service-detail-card:hover,
+  .site .addon-card:hover, .site .contact-card:hover {
+    transform: translateY(-3px);
+    border-color: #b7c7bc;
+    box-shadow: var(--shadow-lg);
+  }
+  .site .addon-card:hover .addon-photo { transform: scale(1.035); }
+  .site .service-link:hover > span, .site .btn:hover > span[aria-hidden="true"] {
+    transform: translate(2px, -2px);
+  }
+}
+.site .service-card:focus-within, .site .service-detail-card:focus-within,
+.site .addon-card:focus-within, .site .contact-card:focus-within { border-color: var(--teal); }
+
+.site :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+.site :is(.hero, .page-hero, .site-header, .site-footer, .promo, .estimate-summary, .booking-summary) :focus-visible {
+  outline-color: var(--amber);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .site [data-reveal].reveal-pending { opacity: 1; translate: none; }
+  .site .hero-copy > *, .site .hero-visual, .site .auth-card { opacity: 1; translate: none; }
+  .site .service-card:hover, .site .service-detail-card:hover,
+  .site .addon-card:hover, .site .contact-card:hover, .site .addon-card:hover .addon-photo { transform: none; }
+}

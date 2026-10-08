@@ -1,21 +1,5 @@
 /* Pricing */
 
-.pricing-page .pricing-hero,
-.contact-page .contact-hero,
-.booking-page .booking-hero {
-  padding-block: 60px !important;
-}
-
-.pricing-page .pricing-hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.15rem);
-  letter-spacing: -.025em;
-  max-width: 700px;
-}
-
-.pricing-page .pricing-hero>.container>p:last-child {
-  max-width: 650px;
-}
-
 .pricing-page .estimate-grid {
   display: grid;
   grid-template-columns: 1.15fr .85fr;
@@ -177,9 +161,10 @@
   margin: 12px 0;
 }
 
-.pricing-page .estimate-duration,
-.pricing-page .estimate-custom-note {
+.pricing-page .estimate-duration {
   font-size: .8rem;
+}.pricing-page .estimate-custom-note {
+  font-size: .875rem;
 }
 
 .pricing-page .estimate-breakdown {
@@ -191,7 +176,7 @@
 .pricing-page .estimate-breakdown>div {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   padding: 6px 0;
   font-size: .82rem;
 }
@@ -199,13 +184,14 @@
 .pricing-page .estimate-breakdown dd {
   margin: 0;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .pricing-page .estimate-payment {
   display: grid;
-  gap: 12px;
-  font-size: .78rem;
-  margin-bottom: 24px;
+  gap: 10px;
+  font-size: .85rem;
+  margin-bottom: 22px;
 }
 
 .pricing-page .estimate-payment span {
@@ -216,10 +202,11 @@
 
 .pricing-page .estimate-payment strong {
   color: var(--amber);
+  white-space: nowrap;
 }
 
 .pricing-page .estimate-disclaimer {
-  font-size: .7rem;
+  font-size: .875rem;
   line-height: 1.7;
   margin: 16px 0 0;
 }
@@ -249,7 +236,7 @@
 
 @media (max-width: 480px) {
   .pricing-page .estimate-form,
-  .pricing-page .estimate-summary {
+.pricing-page .estimate-summary {
     padding: 22px;
   }
 
@@ -266,3 +253,6 @@
   animation: stepDetailIn 220ms ease both;
 }
 
+.pricing-page .estimate-breakdown dt { overflow-wrap: anywhere; }
+
+.pricing-page .estimate-payment>span { display: flex; justify-content: space-between; gap: 10px; }

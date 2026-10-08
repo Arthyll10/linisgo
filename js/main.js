@@ -1,8 +1,4 @@
-// One script for all five pages.
-// Let the HTML load first so the buttons and forms are ready to use.
-// If a page doesn’t have a feature, just skip that part.
-// querySelector finds one element; querySelectorAll finds a list of elements.
-// The ?. bit skips the call if the element isn’t there.
+// Navigation, estimates, contact drafts and booking interactions.
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile menu
   // Toggle the menu and its label. Close it when a link is picked or Escape is pressed.
@@ -34,33 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   mobile.addEventListener('change', () => setMenu(false));
   if (!document.body.classList.contains('site')) return;
 
-  // Scroll animations
-  // Fade sections in as they come into view, unless the user prefers less motion.
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const reveals = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window && !reduced.matches) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('reveal-pending');
-          // This section is already visible, so we’re done watching it.
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-    reveals.forEach((element, index) => {
-      // Give the cards a small delay so they don’t all pop in at once.
-      element.style.setProperty('--reveal-delay', `${index % 3 * 70}ms`);
-      element.classList.add('reveal-pending');
-      observer.observe(element);
-    });
-    reduced.addEventListener('change', () => {
-      if (reduced.matches) {
-        observer.disconnect();
-        reveals.forEach(element => element.classList.remove('reveal-pending'));
-      }
-    });
-  }
 
   // Service filters
   // Show the chosen category and update the number of visible cards.
@@ -71,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
       button.setAttribute('aria-pressed', String(button.dataset.serviceFilter === category));
     });
     serviceCards.forEach(card => { card.hidden = category !== 'all' && card.dataset.serviceCategory !== category; });
+    // Collapse empty groups so the selected cards sit directly under the filters.
+    document.querySelectorAll('[data-service-group]').forEach(group => {
+      group.hidden = !Array.from(group.querySelectorAll('[data-service-category]')).some(card => !card.hidden);
+    });
     const status = document.querySelector('#service-filter-status');
     if (status) status.textContent = `${serviceCards.filter(card => !card.hidden).length} services shown`;
   }
@@ -89,116 +63,131 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     addEventListener('hashchange', revealLinkedService);
-    document.querySelector('.equipment-help a')?.addEventListener('click', () => filterServices('all'));
     revealLinkedService();
   }
-  // Equipment checklist
-  // Count what’s checked and let the user start over with Reset.
-  const equipment = Array.from(document.querySelectorAll('.equipment-item input'));
-  const equipmentStatus = document.querySelector('.equipment-status');
-  const equipmentReset = document.querySelector('.equipment-reset');
-  function updateEquipment() {
-    if (equipmentStatus) equipmentStatus.textContent = `${equipment.filter(input => input.checked).length} of ${equipment.length} items checked · vacuum optional`;
-  }
-  equipment.forEach(input => input.addEventListener('change', updateEquipment));
-  if (equipmentReset) {
-    equipmentReset.hidden = false;
-    equipmentReset.addEventListener('click', () => {
-      equipment.forEach(input => { input.checked = false; });
-      updateEquipment();
-    });
-  }
-
-  // Shared prices and phone validation
-  // Keep the rates in one place so Pricing and Booking don’t disagree.
-  const currency = new Intl.NumberFormat('en-PH', {
-    style: 'currency', currency: 'PHP', maximumFractionDigits: 0
-  });
-  // Show prices in pesos, with no decimal places.
-  function money(value) {
-    return currency.format(value);
-  }
-  // Spaces, brackets and dashes are fine, but we still need 7–15 digits.
+  const { config, money, calculate, fromParams, toParams } = window.LinisGo;
   function validatePhone(value) {
     const digits = value.replace(/\D/g, '');
     return /^[+()\d\s.-]+$/.test(value) && digits.length >= 7 && digits.length <= 15;
   }
-
-  // The size numbers mean bedrooms. Anything not listed needs a custom quote.
-  const cleaningRates = { basic: { '1': 600, '2': 800, '3': 1000 }, deep: { '2': 1500, '3': 1500 } };
-  const addonRates = { ironing: 250, supplies: 450, rush: 150, first: 50 };
-  // Price calculator
-  // Take the home size and extras, then work out the total and payment split.
+  const node = (tag, text, className) => {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    if (className) element.className = className;
+    return element;
+  };
+  document.querySelectorAll('[data-hours]').forEach(element => { element.textContent = config.hours; });
+  document.querySelectorAll('[data-facebook]').forEach(link => { link.href = config.contact.facebook; });
+  function renderPlan(output, plan, booking = false) {
+    output.replaceChildren();
+    const home = plan.size === 'other' ? 'Studio / 4+ bedrooms / other' : plan.size ? `${plan.size} bedroom${plan.size === '1' ? '' : 's'}` : 'Choose home size';
+    const service = { basic: 'Basic Clean', deep: 'Deep Clean' }[plan.clean] || 'Choose your clean';
+    output.append(node('p', `${home} · ${service}`, 'estimate-selection'));
+    output.append(node('p', plan.supported ? money(plan.total) : plan.complete ? 'Quote required' : 'Let’s plan your clean', booking ? 'plan-total' : 'estimate-total'));
+    output.append(node('p', plan.supported ? 'Estimated starting total' : !plan.complete ? 'Choose a core service and home size to see your starting estimate.' : plan.customScope ? 'Your requested scope needs a tailored quote.' : 'A standard rate is not listed for this combination.', 'estimate-duration'));
+    if (!plan.complete) return;
+    if (plan.duration) output.append(node('p', `Core clean: about ${plan.duration}. Add-on time is extra.`, 'estimate-duration'));
+    const breakdown = node('dl', undefined, 'estimate-breakdown');
+    const line = (label, value) => {
+      const row = node('div');
+      row.append(node('dt', label), node('dd', value));
+      breakdown.append(row);
+    };
+    line(service, plan.supported ? money(plan.base) : 'To be quoted');
+    plan.addons.forEach(key => {
+      const addon = config.addons[key];
+      line(`${addon.label} · ${key === 'refrigerator' ? '1 unit' : '30 minutes'}`, `${key === 'refrigerator' ? 'From ' : ''}${money(addon.rate)}`);
+    });
+    if (plan.rush) line('Rush request · availability to be confirmed', money(config.rush));
+    if (plan.first) line('First-clean offer (if eligible)', `−${money(config.firstCleanDiscount)}`);
+    output.append(breakdown);
+    if (plan.supported) {
+      const payment = node('div', undefined, 'estimate-payment');
+      [['Estimated 50% downpayment', plan.deposit], ['Estimated balance after inspection', plan.balance]].forEach(([label, value]) => {
+        const row = node('span'); row.append(node('span', label), node('strong', money(value))); payment.append(row);
+      });
+      output.append(payment);
+    } else {
+      output.append(node('p', 'Final total and deposit require a quote.', 'estimate-custom-note'));
+    }
+  }
   const estimateForm = document.querySelector('#estimate-form');
   if (estimateForm) {
-    const estimateOutput = document.querySelector('#estimate-output');
-
+    const output = document.querySelector('#estimate-output');
     function updateEstimate() {
-      // Heads up: FormData leaves out unchecked checkboxes.
-      const choices = new FormData(estimateForm);
-      const size = choices.get('size');
-      const deep = choices.get('clean') === 'deep';
-      const rate = cleaningRates[deep ? 'deep' : 'basic'][size];
-      const duration = deep ? '5–8 hours' : ({ '1': '2–3 hours', '2': '3–4 hours', '3': '4–6 hours' })[size];
-      const extraLines = [];
-      let extras = 0;
-      [['ironing', 'Ironing', addonRates.ironing], ['supplies', 'All-in-One supplies', addonRates.supplies], ['rush', 'Rush booking', addonRates.rush]].forEach(([key, title, cost]) => {
-        if (choices.has(key)) { extras += cost; extraLines.push(`<div><dt>${title}</dt><dd>${money(cost)}</dd></div>`); }
-      });
-      // Pass the cleaning choices to Booking through the URL. No personal details here.
-      const requestParams = new URLSearchParams({ size, clean: deep ? 'deep' : 'basic' });
-      ['ironing', 'supplies', 'rush', 'first'].forEach(key => { if (choices.has(key)) requestParams.set(key, '1'); });
-      document.querySelector('.estimate-summary > a').href = `book.html?${requestParams.toString()}#booking-form`;
-      const first = choices.has('first');
-      // No listed rate? Ask for a quote instead of guessing a price.
-      const supported = rate !== undefined;
-      const total = supported ? rate + extras - (first ? addonRates.first : 0) : null;
-      const homeLabel = size === 'other' ? 'Custom home size' : `${size} bedroom${size === '1' ? '' : 's'}`;
-      estimateOutput.innerHTML = `<p class="estimate-selection">${homeLabel} · ${deep ? 'Deep' : 'Basic'} Clean</p>
-        <p class="estimate-total">${supported ? money(total) : 'Request a quote'}</p>
-        <p class="estimate-duration">${supported ? `Estimated cleaning time: ${duration}${choices.has('ironing') ? ' + 30–60 min ironing' : ''}` : 'A standard rate is not listed for this combination. Ask our team for a tailored quote.'}</p>
-        <dl class="estimate-breakdown"><div><dt>${deep ? 'Deep' : 'Basic'} Clean</dt><dd>${supported ? money(rate) : 'To be quoted'}</dd></div>${extraLines.join('')}${first ? '<div><dt>First-clean offer</dt><dd>−₱50</dd></div>' : ''}</dl>
-        ${supported ? `<div class="estimate-payment"><span>50% downpayment <strong>${money(total / 2)}</strong></span><span>Balance after inspection <strong>${money(total / 2)}</strong></span></div>` : `<p class="estimate-custom-note">Selected extras: ${money(extras)}. The total and downpayment will be confirmed with your quote${first ? ', including eligibility for the ₱50 first-clean offer' : ''}.</p>`}`;
+      const data = new FormData(estimateForm);
+      const plan = calculate({ size: data.get('size'), clean: data.get('clean'),
+        addons: Object.keys(config.addons).filter(key => data.has(key)),
+        rush: data.has('rush'), first: data.has('first'), customScope: data.has('customScope') });
+      renderPlan(output, plan);
+      document.querySelector('.estimate-summary > a').href = `book.html?${toParams(plan)}#booking-form`;
     }
     estimateForm.addEventListener('change', updateEstimate);
-    // Let Reset finish clearing the fields before working out the total again.
+    estimateForm.addEventListener('submit', event => event.preventDefault());
     estimateForm.addEventListener('reset', () => requestAnimationFrame(updateEstimate));
     document.querySelector('#estimate').hidden = false;
     updateEstimate();
   }
 
-  // Booking form and estimate
-  // Bring over the calculator choices and update the plan as the form changes.
+  // Contact message drafts
+  // Keep a draft for each topic while this page is open, ready to copy.
+  const inquiryTopic = document.querySelector('#inquiry-topic');
+  const inquiryMessage = document.querySelector('#inquiry-message');
+  const inquiryStatus = document.querySelector('#inquiry-copy-status');
+  if (inquiryTopic && inquiryMessage) {
+    const drafts = {
+      booking: inquiryMessage.value,
+      pricing: 'Hi LinisGo! Could you help me with a cleaning quote?\nHome size: [number of bedrooms]\nLocation: [area or subdivision]\nService: [Basic or Deep Clean]\nAdd-ons: [ironing, refrigerator interior, folding, or none]\nPlease confirm what is included and the total price.',
+      area: 'Hi LinisGo! I would like to request cleaning in [location within Mabalacat City].\nHome size: [number of bedrooms]\nPreferred date: [date]\nPlease confirm the scope, quote, and available schedule.',
+      existing: 'Hi LinisGo! I have a question about my existing booking.\nBooking name: [name]\nScheduled date: [date]\nMy question or requested change: [details]'
+    };
+    let previousTopic = inquiryTopic.value;
+    inquiryTopic.addEventListener('change', () => {
+      // Hang on to these edits before switching topics.
+      drafts[previousTopic] = inquiryMessage.value;
+      previousTopic = inquiryTopic.value;
+      inquiryMessage.value = drafts[inquiryTopic.value] || drafts.booking;
+      inquiryStatus.textContent = '';
+    });
+    inquiryMessage.addEventListener('input', () => { inquiryStatus.textContent = ''; });
+    const copyInquiry = document.querySelector('#copy-inquiry');
+    copyInquiry.hidden = false;
+    copyInquiry.addEventListener('click', async () => {
+      if (!inquiryMessage.value.trim()) { inquiryStatus.textContent = 'Write a message before copying.'; inquiryMessage.focus(); return; }
+      try {
+        await navigator.clipboard.writeText(inquiryMessage.value);
+        inquiryStatus.textContent = 'Message copied. Paste it into your preferred contact channel.';
+      } catch {
+        // If copying is blocked, select the text so the user can copy it themselves.
+        inquiryMessage.focus(); inquiryMessage.select();
+        inquiryStatus.textContent = 'Copy is unavailable here. Your message is selected so you can copy it manually.';
+      }
+    });
+  }
   const quoteForm = document.querySelector('#quoteForm');
   if (quoteForm) {
-    // Only use home sizes and services we recognize from the pricing link.
-    const imported = new URLSearchParams(location.search);
-    const importedSize = { '1': '1 bedroom', '2': '2 bedrooms', '3': '3 bedrooms', other: 'Studio / other' }[imported.get('size')];
-    const importedService = { basic: 'Basic clean', deep: 'Deep clean' }[imported.get('clean')];
-    if (importedSize && importedService) {
-      quoteForm.elements.propertyType.value = importedSize;
-      quoteForm.querySelectorAll('[name="serviceType"]').forEach(input => { input.checked = input.value === importedService; });
-      quoteForm.querySelectorAll('[name="addons"]').forEach(input => {
-        input.checked = imported.get(input.value === 'Ironing' ? 'ironing' : 'supplies') === '1';
-      });
-      ['rush', 'first'].forEach(key => { quoteForm.elements[key].checked = imported.get(key) === '1'; });
+    const sizeNames = { '1': '1 bedroom', '2': '2 bedrooms', '3': '3 bedrooms', other: 'Studio / 4+ bedrooms / other' };
+    const serviceNames = { basic: 'Basic clean', deep: 'Deep clean' };
+    const imported = fromParams(new URLSearchParams(location.search));
+    if (imported.clean || imported.size || imported.addons.length || imported.first || imported.rush || imported.customScope) {
+      if (imported.size) quoteForm.elements.propertyType.value = sizeNames[imported.size];
+      quoteForm.querySelectorAll('[name="serviceType"]').forEach(input => { input.checked = input.value === serviceNames[imported.clean]; });
+      quoteForm.querySelectorAll('[name="addons"]').forEach(input => { input.checked = imported.addons.includes(input.value); });
+      ['rush', 'first', 'customScope'].forEach(key => { quoteForm.elements[key].checked = imported[key]; });
       document.querySelector('#booking-import-note').hidden = false;
     }
     const summaryCard = document.querySelector('.booking-summary');
     const summaryMedia = matchMedia('(max-width: 860px)');
-    // Put the summary above Submit on mobile; desktop has room for a sidebar.
     const positionSummary = () => {
       if (summaryMedia.matches) quoteForm.insertBefore(summaryCard, document.querySelector('#submitBtn'));
       else document.querySelector('.booking-sidebar').prepend(summaryCard);
     };
     summaryMedia.addEventListener('change', positionSummary);
     positionSummary();
-    const dateField = quoteForm.querySelector('#preferredDate');
-    // Use Manila time so the date limit follows the business’s local day.
+    const dateField = quoteForm.elements.preferredDate;
     const todayInManila = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Manila', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
     dateField.min = todayInManila();
     dateField.addEventListener('focus', () => { dateField.min = todayInManila(); });
-    // Link each error to its field so screen readers can explain what’s wrong.
     quoteForm.querySelectorAll('.field .error-text').forEach((message, i) => {
       message.id = `booking-error-${i}`;
       message.closest('.field').querySelectorAll('input, select, textarea').forEach(input => {
@@ -206,42 +195,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
     const summary = document.querySelector('#booking-summary');
-    document.querySelector('.booking-summary').hidden = false;
+    summaryCard.hidden = false;
     document.querySelector('.booking-completion').hidden = false;
     document.querySelector('#notes-count').hidden = false;
+    const required = ['fullName', 'phone', 'address', 'propertyType'];
+    const readPlan = () => {
+      const data = new FormData(quoteForm);
+      return calculate({
+        size: Object.keys(sizeNames).find(key => sizeNames[key] === data.get('propertyType')) || '',
+        clean: Object.keys(serviceNames).find(key => serviceNames[key] === data.get('serviceType')) || '',
+        addons: data.getAll('addons'), rush: data.has('rush'), first: data.has('first'), customScope: data.has('customScope')
+      });
+    };
     let lastPlan = '';
     function updateBookingPlan() {
-      const data = new FormData(quoteForm);
-      const size = data.get('propertyType');
-      const service = data.get('serviceType');
-      const deep = service === 'Deep clean';
-      const base = !service ? undefined : cleaningRates[deep ? 'deep' : 'basic'][{ '1 bedroom': '1', '2 bedrooms': '2', '3 bedrooms': '3' }[size]];
-      const addons = data.getAll('addons');
-      const extras = (addons.includes('Ironing') ? addonRates.ironing : 0) + (addons.includes('All-in-One supplies') ? addonRates.supplies : 0) + (data.has('rush') ? addonRates.rush : 0) - (data.has('first') ? addonRates.first : 0);
-
-      // Only rebuild the summary when the plan changes. Typing a name doesn’t affect it.
-      const planKey = JSON.stringify([size, service, addons, data.has('rush'), data.has('first'), data.get('preferredDate'), data.get('preferredTime')]);
+      const plan = readPlan();
+      const planKey = JSON.stringify([plan, dateField.value, quoteForm.elements.preferredTime.value]);
       if (planKey !== lastPlan) {
         lastPlan = planKey;
-        summary.replaceChildren();
-        const selection = document.createElement('p');
-        selection.textContent = `${service || 'Choose your clean'} · ${size || 'Choose home size'}`;
-        const total = document.createElement('p'); total.className = 'plan-total';
-        total.textContent = base !== undefined ? money(base + extras) : service && size ? 'Custom quote' : 'Let’s plan your clean';
-        const details = document.createElement('p'); details.textContent = [...addons, ...(data.has('rush') ? ['Rush +₱150'] : []), ...(data.has('first') ? ['First-clean offer −₱50'] : [])].join(' · ') || 'No add-ons selected';
-        const payment = document.createElement('p'); payment.textContent = base !== undefined ? `Estimated 50% downpayment: ${money((base + extras) / 2)}` : 'We’ll confirm your total before payment.';
-        const schedule = document.createElement('p'); schedule.textContent = !dateField.checkValidity() ? 'Choose today or a future date for your visit.' : data.get('preferredDate') ? `Requested: ${data.get('preferredDate')}${data.get('preferredTime') ? ' · ' + data.get('preferredTime') : ''}` : 'Your schedule will be confirmed by our team.';
-        summary.append(selection, total, details, payment, schedule);
+        renderPlan(summary, plan, true);
+        const schedule = dateField.value && dateField.checkValidity() ? `Requested: ${dateField.value}${quoteForm.elements.preferredTime.value ? ' · ' + quoteForm.elements.preferredTime.value : ''}` : 'Your schedule and any same-day request are subject to availability.';
+        summary.append(node('p', schedule));
       }
-      // Count the required details that are valid. Optional fields don’t affect progress.
-      const complete = ['fullName', 'phone', 'email', 'address', 'propertyType'].filter(name => {
+      const complete = required.filter(name => {
         const input = quoteForm.elements.namedItem(name);
-        if (!input.value.trim() || !input.checkValidity()) return false;
-        if (name === 'phone') return validatePhone(input.value);
-        return true;
-      }).length + (service ? 1 : 0);
+        return input.value.trim() && input.checkValidity() && (name !== 'phone' || validatePhone(input.value));
+      }).length + (plan.clean ? 1 : 0);
       document.querySelector('#booking-progress').value = complete;
-      document.querySelector('#booking-progress-text').textContent = `${complete} of 6 required details completed`;
+      document.querySelector('#booking-progress-text').textContent = `${complete} of 5 required details completed`;
       document.querySelector('#notes-count').textContent = `${quoteForm.elements.notes.value.length} / 1000 characters`;
     }
     quoteForm.addEventListener('input', updateBookingPlan);
@@ -249,120 +230,84 @@ document.addEventListener('DOMContentLoaded', () => {
     quoteForm.addEventListener('reset', () => requestAnimationFrame(() => {
       quoteForm.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
       quoteForm.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+      document.querySelector('#statusBox').className = 'status';
       updateBookingPlan();
     }));
     updateBookingPlan();
-
-    // Booking validation and success message
-    // Check the details, then show the request summary. Nothing gets sent.
-    const form = quoteForm;
-    const statusBox = document.getElementById('statusBox');
-    const submitBtn = document.getElementById('submitBtn');
-
-    function showStatus(kind, message) {
-      statusBox.className = 'status show ' + kind;
-      statusBox.textContent = message;
-      statusBox.scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth', block: 'center' });
+    const statusBox = document.querySelector('#statusBox');
+    function setFieldError(field, invalid) {
+      field.closest('.field')?.classList.toggle('invalid', invalid);
+      field.setAttribute('aria-invalid', String(invalid));
     }
-
-    // Mark the field as invalid both visually and for screen readers.
-    function setFieldError(field, isInvalid) {
-      const wrap = field.closest('.field');
-      if (wrap) wrap.classList.toggle('invalid', isInvalid);
-      field.setAttribute('aria-invalid', String(isInvalid));
-    }
-
     function validate() {
+      dateField.min = todayInManila();
       let valid = true;
-
-      ['fullName', 'phone', 'email', 'address'].forEach((id) => {
-        const el = document.getElementById(id);
-        const bad = !el.value.trim() || (id === 'email' && !el.checkValidity()) || (id === 'phone' && !validatePhone(el.value));
-        setFieldError(el, bad);
+      quoteForm.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select, textarea').forEach(input => {
+        const bad = !input.checkValidity() || (input.required && !input.value.trim()) || (input.name === 'phone' && !validatePhone(input.value));
+        setFieldError(input, bad);
         if (bad) valid = false;
       });
-
-      const propertyType = document.getElementById('propertyType');
-      const propBad = !propertyType.value;
-      setFieldError(propertyType, propBad);
-      if (propBad) valid = false;
-
-      const serviceChosen = form.querySelector('input[name="serviceType"]:checked');
-      const serviceWrap = document.getElementById('serviceChips').parentElement;
-      if (!serviceChosen) {
-        serviceWrap.classList.add('invalid');
-        valid = false;
-      } else {
-        serviceWrap.classList.remove('invalid');
-      }
-
-      const date = document.getElementById('preferredDate');
-      const dateBad = !date.checkValidity();
-      setFieldError(date, dateBad);
-      if (dateBad) valid = false;
-      form.querySelectorAll('input[name="serviceType"]').forEach(input => input.setAttribute('aria-invalid', String(!serviceChosen)));
-      return valid;
+      const serviceChosen = Boolean(readPlan().clean);
+      document.querySelector('#serviceChips').closest('.field').classList.toggle('invalid', !serviceChosen);
+      quoteForm.querySelectorAll('[name="serviceType"]').forEach(input => input.setAttribute('aria-invalid', String(!serviceChosen)));
+      return valid && serviceChosen;
     }
-
-    // Check the field again as the user fixes it.
-    form.addEventListener('input', function (event) {
-      const field = event.target;
-      if (field.getAttribute('aria-invalid') !== 'true') return;
-      const bad = !field.checkValidity() || (field.required && !field.value.trim()) || (field.id === 'phone' && !validatePhone(field.value));
-      setFieldError(field, bad);
+    quoteForm.addEventListener('input', event => {
+      const input = event.target;
+      if (input.getAttribute('aria-invalid') !== 'true') return;
+      const bad = !input.checkValidity() || (input.required && !input.value.trim()) || (input.name === 'phone' && !validatePhone(input.value));
+      setFieldError(input, bad);
     });
-
-    form.addEventListener('submit', function (e) {
-      // Stay on this page. This demo isn’t connected to a booking backend.
-      e.preventDefault();
-      if (submitBtn.disabled) return;
+    quoteForm.addEventListener('change', () => {
+      if (readPlan().clean) {
+        document.querySelector('#serviceChips').closest('.field').classList.remove('invalid');
+        quoteForm.querySelectorAll('[name="serviceType"]').forEach(input => input.removeAttribute('aria-invalid'));
+      }
+    });
+    const review = document.querySelector('#booking-success');
+    quoteForm.addEventListener('submit', event => {
+      event.preventDefault();
       statusBox.className = 'status';
-
-      // Leave this hidden field empty. It’s there to catch bots that fill every field.
-      const honeypot = document.getElementById('website').value;
-      if (honeypot) {
-        showStatus('failure', 'Your request could not be sent. Please refresh the page or contact us directly.');
+      if (quoteForm.elements.website.value || !validate()) {
+        statusBox.className = 'status show failure';
+        statusBox.textContent = 'Please check the highlighted fields before reviewing your request.';
+        quoteForm.querySelector('[aria-invalid="true"]')?.focus();
         return;
       }
-
-      if (!validate()) {
-        showStatus('failure', 'Please check the highlighted fields before submitting.');
-        form.querySelector('[aria-invalid="true"]')?.focus();
-        return;
-      }
-
-      const details = document.getElementById('booking-success-details');
-      details.replaceChildren();
-      const data = new FormData(form);
+      const data = new FormData(quoteForm);
+      const plan = readPlan();
+      const entered = name => String(data.get(name) ?? '').trim();
       const rows = [
-        ['Cleaning', data.get('serviceType')],
-        ['Home size', data.get('propertyType')],
-        ['Add-ons', data.getAll('addons').join(', ') || 'None selected'],
+        ['Name', entered('fullName')], ['Phone', entered('phone')],
+        ...(entered('email') ? [['Email', entered('email')]] : []),
+        ['Property address', entered('address')], ['Cleaning', serviceNames[plan.clean]], ['Home size', sizeNames[plan.size]],
+        ['Add-ons', plan.addons.map(key => `${config.addons[key].label} · ${config.addons[key].unit}`).join('; ') || 'None selected'],
+        ['Scope', plan.customScope ? 'Custom scope · quote required' : 'Standard scope, subject to confirmation'],
+        ['Rush', plan.rush ? 'Requested · +₱150, availability to be confirmed' : 'Not requested'],
+        ['First-clean offer', plan.first ? '−₱50, eligibility to be confirmed' : 'Not selected'],
         ['Preferred visit', [data.get('preferredDate'), data.get('preferredTime')].filter(Boolean).join(' · ') || 'To be arranged'],
-        ['Estimated total', document.querySelector('#booking-summary .plan-total')?.textContent || 'To be quoted']
+        ['Estimated starting total', plan.supported ? money(plan.total) : 'Quote required'],
+        ['Estimated 50% downpayment', plan.supported ? money(plan.deposit) : 'Based on the confirmed quote'],
+        ['Estimated balance', plan.supported ? money(plan.balance) : 'Based on the confirmed quote'],
+        ['Notes', entered('notes') || 'None']
       ];
-      // Use textContent here so anything entered stays plain text.
+      const details = document.querySelector('#booking-success-details');
+      details.replaceChildren();
       rows.forEach(([label, value]) => {
-        const row = document.createElement('div');
-        const term = document.createElement('dt'); term.textContent = label;
-        const description = document.createElement('dd'); description.textContent = value;
-        row.append(term, description); details.append(row);
+        const row = node('div'); row.append(node('dt', label), node('dd', value)); details.append(row);
       });
-      form.hidden = true;
+      quoteForm.hidden = true;
       document.querySelector('.booking-form-intro').hidden = true;
-      document.getElementById('booking-success').hidden = false;
-      document.getElementById('booking-success-title').focus({ preventScroll: true });
-      document.getElementById('booking-success').scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth', block: 'start' });
-
+      review.hidden = false;
+      document.querySelector('#booking-success-title').focus({ preventScroll: true });
+      review.scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth', block: 'start' });
     });
-    // Let the user go back and edit without filling everything in again.
-    document.getElementById('edit-success').addEventListener('click', () => {
-      document.getElementById('booking-success').hidden = true;
-      form.hidden = false;
+    document.querySelector('#edit-success').addEventListener('click', () => {
+      review.hidden = true; quoteForm.hidden = false;
       document.querySelector('.booking-form-intro').hidden = false;
-      document.getElementById('fullName').focus();
+      quoteForm.elements.fullName.focus();
     });
-    submitBtn.disabled = false;
+    document.querySelector('#submitBtn').disabled = false;
   }
 
   // Rotating headline
