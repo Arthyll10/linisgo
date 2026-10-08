@@ -189,24 +189,6 @@
   flex-shrink: 0;
 }
 
-.pricing-page .estimate-payment {
-  display: grid;
-  gap: 10px;
-  font-size: .85rem;
-  margin-bottom: 22px;
-}
-
-.pricing-page .estimate-payment span {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.pricing-page .estimate-payment strong {
-  color: var(--amber);
-  white-space: nowrap;
-}
-
 .pricing-page .estimate-disclaimer {
   font-size: .875rem;
   line-height: 1.7;
@@ -258,10 +240,4 @@
 
 .pricing-page .estimate-breakdown dt {
   overflow-wrap: anywhere;
-}
-
-.pricing-page .estimate-payment>span {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
 }

@@ -1,10 +1,10 @@
 /* Theme, shared components, page layouts, then responsive and motion rules. */
 @import url("base.css?v=polish-1");
 @import url("components.css?v=polish-1");
-@import url("shared.css?v=polish-1");
+@import url("shared.css?v=payment-layout");
 @import url("home.css?v=polish-1");
 @import url("services.css?v=polish-1");
-@import url("pricing.css?v=polish-1");
+@import url("pricing.css?v=payment-layout");
 @import url("contact.css?v=polish-1");
 @import url("booking.css?v=polish-1");
 @import url("addons.css?v=polish-1");

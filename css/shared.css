@@ -550,3 +550,30 @@
     margin-left: 4px;
   }
 }
+
+/* Shared payment rows for pricing estimates and booking summaries. */
+.site .estimate-payment {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.site .estimate-payment > span {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 16px;
+}
+
+.site .estimate-payment strong {
+  color: var(--amber);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.site .estimate-breakdown dd {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
