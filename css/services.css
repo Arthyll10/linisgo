@@ -188,7 +188,9 @@
 
 .booking-page .booking-summary p {
   font-size: .85rem;
-}.services-page .equipment-help p {
+}
+
+.services-page .equipment-help p {
   font-size: .9rem;
   line-height: 1.7;
 }
@@ -255,20 +257,59 @@
   }
 }
 
-.site .equipment-list { list-style: none; padding: 0; margin: 18px 0 0; }
+.site .equipment-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
 
-.site .equipment-item { cursor: default; font-size: .9rem; }
+.site .equipment-item {
+  cursor: default;
+  font-size: .9rem;
+}
 
-.site .fixed-check { flex: 0 0 26px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--teal); background: var(--teal-light); font-weight: 700; }
+.site .fixed-check {
+  flex: 0 0 26px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--teal);
+  background: var(--teal-light);
+  font-weight: 700;
+}
 
-.site .equipment-help p { font-size: .9rem; }
+.site .equipment-help p {
+  font-size: .9rem;
+}
 
-.services-page .service-catalog { display: grid; gap: 32px; }
+.services-page .service-catalog {
+  display: grid;
+  gap: 32px;
+}
 
 
-.services-page .catalog-note { margin: 28px 0 0; }
+.services-page .catalog-note {
+  margin: 28px 0 0;
+}
 
-.services-page .service-detail-card .disclosure { border-top: 1px solid var(--line); margin-top: 20px; margin-bottom: 24px; }
-.services-page .service-inclusions { margin: 0; }
-.services-page .equipment-card h3 { font-size: 1.25rem; margin: 0 0 22px; }
-.services-page .service-filters button:not([aria-pressed="true"]):hover { color: var(--teal-deep); background: var(--teal-light); }
+.services-page .service-detail-card .disclosure {
+  border-top: 1px solid var(--line);
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.services-page .service-inclusions {
+  margin: 0;
+}
+
+.services-page .equipment-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 22px;
+}
+
+.services-page .service-filters button:not([aria-pressed="true"]):hover {
+  color: var(--teal-deep);
+  background: var(--teal-light);
+}

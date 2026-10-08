@@ -163,7 +163,9 @@
 
 .pricing-page .estimate-duration {
   font-size: .8rem;
-}.pricing-page .estimate-custom-note {
+}
+
+.pricing-page .estimate-custom-note {
   font-size: .875rem;
 }
 
@@ -235,8 +237,9 @@
 }
 
 @media (max-width: 480px) {
+
   .pricing-page .estimate-form,
-.pricing-page .estimate-summary {
+  .pricing-page .estimate-summary {
     padding: 22px;
   }
 
@@ -253,6 +256,12 @@
   animation: stepDetailIn 220ms ease both;
 }
 
-.pricing-page .estimate-breakdown dt { overflow-wrap: anywhere; }
+.pricing-page .estimate-breakdown dt {
+  overflow-wrap: anywhere;
+}
 
-.pricing-page .estimate-payment>span { display: flex; justify-content: space-between; gap: 10px; }
+.pricing-page .estimate-payment>span {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

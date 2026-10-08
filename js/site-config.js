@@ -42,16 +42,19 @@ window.LinisGo = (() => {
     const supported = rate !== null && !plan.customScope;
     const extras = plan.addons.reduce((sum, key) => sum + config.addons[key].rate, 0);
     const total = supported ? rate + extras + (plan.rush ? config.rush : 0) - (plan.first ? config.firstCleanDiscount : 0) : null;
-    return { ...plan, complete, supported, base: supported ? rate : null, extras, total,
+    return {
+      ...plan, complete, supported, base: supported ? rate : null, extras, total,
       deposit: supported ? total * config.depositFraction : null,
       balance: supported ? total * (1 - config.depositFraction) : null,
       duration: supported ? config.durations[plan.clean][plan.size] : null
     };
   }
   function fromParams(params) {
-    return normalize({ clean: params.get('clean'), size: params.get('size'),
+    return normalize({
+      clean: params.get('clean'), size: params.get('size'),
       addons: Object.keys(config.addons).filter(key => params.get(key) === '1'),
-      rush: params.get('rush') === '1', first: params.get('first') === '1', customScope: params.get('customScope') === '1' });
+      rush: params.get('rush') === '1', first: params.get('first') === '1', customScope: params.get('customScope') === '1'
+    });
   }
   function toParams(input) {
     const plan = normalize(input);

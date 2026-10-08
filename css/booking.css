@@ -366,10 +366,18 @@
 
 }
 
-.booking-page .booking-success dd { overflow-wrap: anywhere; white-space: pre-wrap; }
-
-@media (max-width: 860px) {
-  .booking-page .row { grid-template-columns: 1fr; }
+.booking-page .booking-success dd {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
-.booking-page #submitBtn { padding: 15px; font-size: 1rem; }
+@media (max-width: 860px) {
+  .booking-page .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.booking-page #submitBtn {
+  padding: 15px;
+  font-size: 1rem;
+}

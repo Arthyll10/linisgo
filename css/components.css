@@ -304,8 +304,9 @@ section {
 }
 
 @media (max-width: 640px) {
+
   .grid-3,
-.grid-2 {
+  .grid-2 {
     grid-template-columns: 1fr;
   }
 }
@@ -418,9 +419,9 @@ section {
   }
 
   .price-table,
-.price-table tbody,
-.price-table tr,
-.price-table td {
+  .price-table tbody,
+  .price-table tr,
+  .price-table td {
     display: block;
     width: 100%;
   }
@@ -621,36 +622,173 @@ textarea:focus-visible {
   }
 }
 
-.site .service-price { color: var(--teal-deep); font-size: 1rem; font-weight: 700; margin: 16px 0 8px; }
+.site .service-price {
+  color: var(--teal-deep);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 16px 0 8px;
+}
 
-.site .pricing-note { font-size: .95rem; color: var(--ink-soft); line-height: 1.7; margin: 24px 0; }
+.site .pricing-note {
+  font-size: .95rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 24px 0;
+}
 
-.section-head > p:not(.section-label) { color: var(--ink-soft); font-size: 1rem; line-height: 1.75; max-width: 600px; margin: 0; }
-.section-head > .section-label { margin: 0 0 10px; }
-.section-head h2 { text-wrap: balance; }
-.eyebrow svg { width: 14px; height: 14px; fill: currentColor; }
-@media (max-width: 780px) { :root { --card-padding: 24px; } }
+.section-head>p:not(.section-label) {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 600px;
+  margin: 0;
+}
 
-.page-hero .eyebrow { color: var(--amber); font-size: .75rem; margin-bottom: 20px; }
-.page-hero .hero-actions { margin: 28px 0 0; }
-.page-hero p:not(.eyebrow) { max-width: 650px; font-size: 1rem; line-height: 1.75; }
-@media (max-width: 780px) { .page-hero { padding-block: 48px; } }
+.section-head>.section-label {
+  margin: 0 0 10px;
+}
+
+.section-head h2 {
+  text-wrap: balance;
+}
+
+.eyebrow svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+@media (max-width: 780px) {
+  :root {
+    --card-padding: 24px;
+  }
+}
+
+.page-hero .eyebrow {
+  color: var(--amber);
+  font-size: .75rem;
+  margin-bottom: 20px;
+}
+
+.page-hero .hero-actions {
+  margin: 28px 0 0;
+}
+
+.page-hero p:not(.eyebrow) {
+  max-width: 650px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 780px) {
+  .page-hero {
+    padding-block: 48px;
+  }
+}
 
 /* Shared disclosure appearance; height animation lives in js/motion.js. */
-.site .disclosure { padding: 0; }
-.site .disclosure > summary { border-radius: 6px; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 48px; padding: 14px 0; margin: 0; list-style: none; color: var(--teal-deep); font-size: .875rem; font-weight: 600; line-height: 1.55; cursor: pointer; }
-.site .disclosure > summary::-webkit-details-marker { display: none; }
-.site .disclosure-icon { position: relative; width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: var(--teal-light); color: var(--teal); transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease; }
-.site .disclosure-icon::before, .site .disclosure-icon::after { content: ''; position: absolute; inset: 12px 8px; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform var(--duration-ui) var(--ease-out), opacity var(--duration-fast) ease; }
-.site .disclosure-icon::after { transform: rotate(90deg); }
-.site .disclosure[open]:not([data-expanded="false"]) .disclosure-icon::after { transform: rotate(0); opacity: 0; }
-.site .disclosure > summary:hover .disclosure-icon { color: #fff; background: var(--teal); }
-.site .disclosure-content { display: flow-root; padding: 2px 0 20px; }
-.site .disclosure-content > :first-child { margin-top: 0; }
-.site .disclosure-content > :last-child { margin-bottom: 0; }
-.site .disclosure-content p, .site .disclosure-content li { color: var(--ink-soft); font-size: .9rem; line-height: 1.75; }
-.site .faq-list { padding: 4px var(--card-padding); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--cream-card); }
-.site .faq-list .disclosure { border-bottom: 1px solid var(--line); }
-.site .faq-list .disclosure:last-child { border: 0; }
-.site .faq-list summary { padding-block: 22px; font-size: .95rem; }
-.site .faq-list .disclosure-content { max-width: 800px; padding-bottom: 24px; }
+.site .disclosure {
+  padding: 0;
+}
+
+.site .disclosure>summary {
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 48px;
+  padding: 14px 0;
+  margin: 0;
+  list-style: none;
+  color: var(--teal-deep);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.site .disclosure>summary::-webkit-details-marker {
+  display: none;
+}
+
+.site .disclosure-icon {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.site .disclosure-icon::before,
+.site .disclosure-icon::after {
+  content: '';
+  position: absolute;
+  inset: 12px 8px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--duration-ui) var(--ease-out), opacity var(--duration-fast) ease;
+}
+
+.site .disclosure-icon::after {
+  transform: rotate(90deg);
+}
+
+.site .disclosure[open]:not([data-expanded="false"]) .disclosure-icon::after {
+  transform: rotate(0);
+  opacity: 0;
+}
+
+.site .disclosure>summary:hover .disclosure-icon {
+  color: #fff;
+  background: var(--teal);
+}
+
+.site .disclosure-content {
+  display: flow-root;
+  padding: 2px 0 20px;
+}
+
+.site .disclosure-content> :first-child {
+  margin-top: 0;
+}
+
+.site .disclosure-content> :last-child {
+  margin-bottom: 0;
+}
+
+.site .disclosure-content p,
+.site .disclosure-content li {
+  color: var(--ink-soft);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.site .faq-list {
+  padding: 4px var(--card-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--cream-card);
+}
+
+.site .faq-list .disclosure {
+  border-bottom: 1px solid var(--line);
+}
+
+.site .faq-list .disclosure:last-child {
+  border: 0;
+}
+
+.site .faq-list summary {
+  padding-block: 22px;
+  font-size: .95rem;
+}
+
+.site .faq-list .disclosure-content {
+  max-width: 800px;
+  padding-bottom: 24px;
+}

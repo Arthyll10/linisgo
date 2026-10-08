@@ -474,34 +474,79 @@
   }
 }
 
-.site .comparison-range { bottom: 0; left: 0; }
+.site .comparison-range {
+  bottom: 0;
+  left: 0;
+}
 
-.site .comparison-stage:focus-within { outline: 3px solid var(--teal); outline-offset: 4px; }
+.site .comparison-stage:focus-within {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
 
-.site .comparison:focus-within .comparison-stage { outline: 3px solid var(--teal); outline-offset: 4px; }
+.site .comparison:focus-within .comparison-stage {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
 
-.site .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 24px; }
+.site .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 24px;
+}
 
-.site .footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
+.site .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 
-.site .footer-hours { font-size: .8rem; margin: 8px 0 0; }
+.site .footer-hours {
+  font-size: .8rem;
+  margin: 8px 0 0;
+}
 
-.site .estimate-reset { min-height: 44px; border: 0; padding: 10px 12px; background: transparent; font: inherit; color: var(--teal); text-decoration: underline; cursor: pointer; }
+.site .estimate-reset {
+  min-height: 44px;
+  border: 0;
+  padding: 10px 12px;
+  background: transparent;
+  font: inherit;
+  color: var(--teal);
+  text-decoration: underline;
+  cursor: pointer;
+}
 
-.site .field-help { font-size: .85rem; line-height: 1.65; }
-
-@media (min-width: 781px) and (max-width: 1100px) {
-  .site .nav { gap: 12px; padding-inline: 16px; }
+.site .field-help {
+  font-size: .85rem;
+  line-height: 1.65;
 }
 
 @media (min-width: 781px) and (max-width: 1100px) {
-  .site .nav-links a { padding-inline: 8px; font-size: .8rem; }
+  .site .nav {
+    gap: 12px;
+    padding-inline: 16px;
+  }
 }
 
 @media (min-width: 781px) and (max-width: 1100px) {
-  .site .nav-account { margin-left: 2px; padding-left: 4px; }
+  .site .nav-links a {
+    padding-inline: 8px;
+    font-size: .8rem;
+  }
 }
 
 @media (min-width: 781px) and (max-width: 1100px) {
-  .site .nav-links .nav-booking-link { padding-inline: 12px; margin-left: 4px; }
+  .site .nav-account {
+    margin-left: 2px;
+    padding-left: 4px;
+  }
+}
+
+@media (min-width: 781px) and (max-width: 1100px) {
+  .site .nav-links .nav-booking-link {
+    padding-inline: 12px;
+    margin-left: 4px;
+  }
 }

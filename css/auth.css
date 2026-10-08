@@ -59,7 +59,7 @@
   line-height: 1.1;
 }
 
-.auth-brand-name > span {
+.auth-brand-name>span {
   color: var(--amber);
 }
 
@@ -99,13 +99,13 @@
   margin: 0 0 12px;
 }
 
-.auth-intro > p {
+.auth-intro>p {
   margin: 0;
   color: var(--ink-soft);
   line-height: 1.7;
 }
 
-.auth-intro > p:not(.auth-notice) {
+.auth-intro>p:not(.auth-notice) {
   max-width: 30ch;
   font-size: .95rem;
 }
@@ -179,7 +179,7 @@
   gap: 12px;
 }
 
-.auth-fields-row + .auth-fields-row {
+.auth-fields-row+.auth-fields-row {
   margin-top: 14px;
 }
 
@@ -216,7 +216,7 @@
   row-gap: 8px;
 }
 
-.auth-password-row > .field-help {
+.auth-password-row>.field-help {
   grid-column: 1 / -1;
   margin: 0;
 }
@@ -225,7 +225,7 @@
   margin-top: 12px;
 }
 
-.auth-card form[data-mode="register"] > #auth-submit {
+.auth-card form[data-mode="register"]>#auth-submit {
   margin-top: 16px;
 }
 
@@ -280,11 +280,11 @@
 }
 
 @media (max-width: 780px) {
-  .auth-password-row > .field-help {
+  .auth-password-row>.field-help {
     order: 1;
   }
 
-  .auth-password-row > .auth-field:last-of-type {
+  .auth-password-row>.auth-field:last-of-type {
     order: 2;
   }
 
@@ -337,7 +337,7 @@
     text-wrap: balance;
   }
 
-  .auth-intro > p:not(.auth-notice) {
+  .auth-intro>p:not(.auth-notice) {
     max-width: 30ch;
     margin: 0 auto;
     font-size: .9rem;
@@ -467,26 +467,51 @@
 }
 
 @keyframes popupIn {
-  from { opacity: 0; transform: translateY(8px) scale(.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes popupOut {
-  from { opacity: 1; transform: translateY(0) scale(1); }
-  to { opacity: 0; transform: translateY(6px) scale(.97); }
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(.97);
+  }
 }
 
 @keyframes backdropIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes backdropOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .site .auth-success[open],
   .site .auth-success[open]::backdrop {
     animation: none !important;

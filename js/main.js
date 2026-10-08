@@ -116,9 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const output = document.querySelector('#estimate-output');
     function updateEstimate() {
       const data = new FormData(estimateForm);
-      const plan = calculate({ size: data.get('size'), clean: data.get('clean'),
+      const plan = calculate({
+        size: data.get('size'), clean: data.get('clean'),
         addons: Object.keys(config.addons).filter(key => data.has(key)),
-        rush: data.has('rush'), first: data.has('first'), customScope: data.has('customScope') });
+        rush: data.has('rush'), first: data.has('first'), customScope: data.has('customScope')
+      });
       renderPlan(output, plan);
       document.querySelector('.estimate-summary > a').href = `book.html?${toParams(plan)}#booking-form`;
     }

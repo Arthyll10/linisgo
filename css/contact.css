@@ -137,7 +137,9 @@
   background: var(--cream-card);
   color: var(--ink);
   line-height: 1.7;
-}.contact-page .inquiry-card textarea {
+}
+
+.contact-page .inquiry-card textarea {
   display: block;
   width: 100%;
   font: inherit;
@@ -191,8 +193,9 @@
 }
 
 @media (max-width: 780px) {
+
   .contact-page .contact-grid,
-.contact-page .inquiry-grid {
+  .contact-page .inquiry-grid {
     grid-template-columns: 1fr;
   }
 
@@ -202,39 +205,95 @@
 
 }
 
-.contact-page .redacted-phone { font-family: var(--font-heading); font-size: 1.05rem; color: var(--teal-deep); font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; letter-spacing: .06em; }
-@media (max-width: 780px) { .contact-page .contact-grid { grid-template-columns: 1fr; } }
-
-.contact-page #inquiry { scroll-margin-top: 100px; }
-
-.contact-page .coverage-section { background: var(--cream-card); border-block: 1px solid var(--line); }
-
-.contact-page .coverage-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
-
-.contact-page .coverage-grid>div { min-width: 0; }
-
-.contact-page .coverage-grid h2 { font-size: clamp(1.8rem, 3vw, 2.3rem); margin: 0 0 24px; }
-
-.contact-page .coverage-grid p { color: var(--ink-soft); }
-
-.contact-page .coverage-map { padding: 0; overflow: hidden; }
-
-.contact-page .coverage-map iframe { display: block; border: 0; width: 100%; height: 380px; }
-
-.contact-page .coverage-map p { padding: 14px 20px; margin: 0; font-size: .8rem; }
-
-.contact-page .hours-row { gap: 12px; flex-wrap: wrap; font-size: .85rem; }
-
-.contact-page .contact-card .hours-row:last-of-type { margin-bottom: 20px; }
-
-@media (max-width: 860px) {
-  .contact-page .coverage-grid { grid-template-columns: 1fr; gap: 28px; }
+.contact-page .redacted-phone {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--teal-deep);
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: .06em;
 }
 
 @media (max-width: 780px) {
-  .contact-page .coverage-map iframe { height: 310px; }
+  .contact-page .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-page #inquiry {
+  scroll-margin-top: 100px;
+}
+
+.contact-page .coverage-section {
+  background: var(--cream-card);
+  border-block: 1px solid var(--line);
+}
+
+.contact-page .coverage-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.contact-page .coverage-grid>div {
+  min-width: 0;
+}
+
+.contact-page .coverage-grid h2 {
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  margin: 0 0 24px;
+}
+
+.contact-page .coverage-grid p {
+  color: var(--ink-soft);
+}
+
+.contact-page .coverage-map {
+  padding: 0;
+  overflow: hidden;
+}
+
+.contact-page .coverage-map iframe {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: 380px;
+}
+
+.contact-page .coverage-map p {
+  padding: 14px 20px;
+  margin: 0;
+  font-size: .8rem;
+}
+
+.contact-page .hours-row {
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: .85rem;
+}
+
+.contact-page .contact-card .hours-row:last-of-type {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 860px) {
+  .contact-page .coverage-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 780px) {
+  .contact-page .coverage-map iframe {
+    height: 310px;
+  }
 }
 
 @media (max-width: 580px) {
-  .contact-page .contact-grid { grid-template-columns: 1fr; }
+  .contact-page .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }

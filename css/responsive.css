@@ -64,11 +64,11 @@
   }
 
   .site input:not([type="checkbox"]):not([type="radio"]),
-.site select,
-.site textarea,
-.booking-page #quoteForm input:not([type="checkbox"]):not([type="radio"]),
-.booking-page #quoteForm select,
-.booking-page #quoteForm textarea {
+  .site select,
+  .site textarea,
+  .booking-page #quoteForm input:not([type="checkbox"]):not([type="radio"]),
+  .booking-page #quoteForm select,
+  .booking-page #quoteForm textarea {
     font-size: 16px;
   }
 
@@ -98,16 +98,17 @@
   }
 
   .site .service-grid p:not(.section-label):not(.service-price):not(.service-duration),
-.services-page .service-description,
-.services-page .service-inclusions li {
+  .services-page .service-description,
+  .services-page .service-inclusions li {
     font-size: .95rem;
   }
 }
 
 @media (hover: none) {
+
   .site .card-hover:hover,
-.site .btn:hover,
-.site .interactive-steps .step:hover {
+  .site .btn:hover,
+  .site .interactive-steps .step:hover {
     transform: none;
   }
 
@@ -260,17 +261,24 @@
   }
 
   .site input,
-.site select,
-.site textarea,
-.site button,
-.site a {
+  .site select,
+  .site textarea,
+  .site button,
+  .site a {
     scroll-margin-bottom: 100px;
   }
 }
+
 @media (max-width: 780px) {
-  .site .price-table td { align-items: flex-start; gap: 16px; font-size: .9rem; }
+  .site .price-table td {
+    align-items: flex-start;
+    gap: 16px;
+    font-size: .9rem;
+  }
 }
 
 @media (max-width: 780px) {
-  .site .price-table td::before { flex-shrink: 0; }
+  .site .price-table td::before {
+    flex-shrink: 0;
+  }
 }

@@ -28,7 +28,7 @@ if (authForm) {
 
   document.querySelector('#success-close').addEventListener('click', () => closePopup(true));
   popup.addEventListener('cancel', event => {
-    event.preventDefault(); 
+    event.preventDefault();
     closePopup();
   });
   popup.addEventListener('close', () => {
@@ -57,7 +57,7 @@ if (authForm) {
   });
 
   authForm.addEventListener('submit', event => {
-    event.preventDefault(); 
+    event.preventDefault();
     validateFields();
     if (!authForm.reportValidity()) return;
 
