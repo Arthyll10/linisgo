@@ -50,48 +50,6 @@
   flex-shrink: 0;
 }
 
-.site .promo-announcement {
-  background: var(--amber-light);
-  border-bottom: 1px solid var(--amber);
-}
-
-.site .promo-announcement .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-block: 12px;
-  font-size: .8rem;
-}
-
-.site .promo-announcement p {
-  margin: 0;
-  color: var(--teal-deep);
-}
-
-.site .offer-tag {
-  display: inline-block;
-  margin-right: 14px;
-  padding: 3px 9px;
-  border-radius: 4px;
-  background: var(--amber);
-  font-size: .65rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.site .promo-announcement a {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 32px;
-  flex-shrink: 0;
-  color: var(--teal-deep);
-  font-weight: 700;
-  text-underline-offset: 4px;
-}
-
 .site .hero-visual {
   position: relative;
   min-width: 0;
@@ -170,24 +128,7 @@
     margin-left: 0;
   }
 
-  .site .announcement-detail {
-    display: none;
-  }
 
-  .site .offer-tag {
-    display: none;
-  }
-
-  .site .promo-announcement .container {
-    gap: 10px;
-    font-size: .75rem;
-    padding-block: 8px;
-  }
-
-  .site .promo-announcement a {
-    min-height: 44px;
-    gap: 6px;
-  }
 }
 
 @media (max-width: 560px) {
@@ -529,5 +470,127 @@
 @media (min-width: 781px) {
   .site .interactive-steps {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* Non-modal welcome offer; stays above the mobile booking control. */
+.site .welcome-offer,
+.site .offer-toggle {
+  position: fixed;
+  left: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 91;
+  box-shadow: var(--shadow-lg);
+}
+
+.site .welcome-offer {
+  width: min(350px, calc(100% - 48px));
+  padding: 26px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--teal-deep);
+  color: var(--cream);
+}
+
+.site .welcome-offer .offer-eyebrow {
+  margin: 0 36px 10px 0;
+  color: var(--amber);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.site .welcome-offer h2 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.site .welcome-offer .offer-description {
+  margin: 0 0 18px;
+  color: inherit;
+  font-size: .85rem;
+}
+
+.site .welcome-offer .btn {
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: none;
+}
+
+.site .offer-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--cream);
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.site .offer-close:hover {
+  background: var(--glass-border);
+}
+
+.site .offer-close:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -4px;
+}
+
+.site .offer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--amber);
+  border-radius: 28px;
+  background: var(--teal-deep);
+  color: var(--cream);
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.site .offer-toggle span {
+  color: var(--amber);
+}
+
+.site .offer-toggle:hover {
+  background: var(--teal);
+}
+
+.site .offer-toggle:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .site .welcome-offer:not([hidden]),
+  .site .offer-toggle:not([hidden]) {
+    animation: stepDetailIn 250ms ease both;
+  }
+}
+
+@media (max-width: 780px) {
+
+  .site .welcome-offer,
+  .site .offer-toggle {
+    left: 20px;
+    bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+
+  .site .welcome-offer {
+    width: min(350px, calc(100% - 40px));
+    padding: 22px;
   }
 }

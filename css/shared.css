@@ -560,7 +560,7 @@
   line-height: 1.6;
 }
 
-.site .estimate-payment > span {
+.site .estimate-payment>span {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;

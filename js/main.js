@@ -421,6 +421,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Welcome offer uses the same collapse/reopen pattern as quick booking.
+  const welcomeOffer = document.querySelector('#welcome-offer');
+  const offerToggle = document.querySelector('.offer-toggle');
+  if (welcomeOffer && offerToggle) {
+    let offerCollapsed = false;
+    try { offerCollapsed = sessionStorage.getItem('linisgo-offer-collapsed') === 'true'; } catch { /* Storage is optional. */ }
+    function setOfferCollapsed(collapsed, moveFocus = false) {
+      welcomeOffer.hidden = collapsed;
+      offerToggle.hidden = !collapsed;
+      offerToggle.setAttribute('aria-expanded', String(!collapsed));
+      try { sessionStorage.setItem('linisgo-offer-collapsed', String(collapsed)); } catch { /* Keep the controls usable without storage. */ }
+      if (moveFocus) (collapsed ? offerToggle : welcomeOffer.querySelector('.offer-close')).focus({ preventScroll: true });
+    }
+    welcomeOffer.querySelector('.offer-close').addEventListener('click', () => setOfferCollapsed(true, true));
+    offerToggle.addEventListener('click', () => setOfferCollapsed(false, true));
+    welcomeOffer.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOfferCollapsed(true, true);
+      }
+    });
+    setOfferCollapsed(offerCollapsed);
+  }
+
   // Mobile booking button
   // The × tucks the bar away; the small Book button brings it back.
   const quickAction = document.querySelector('.mobile-booking-bar');
