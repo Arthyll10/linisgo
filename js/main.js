@@ -421,12 +421,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Welcome offer uses the same collapse/reopen pattern as quick booking.
+  // Mobile offers expand in the page; desktop keeps the floating popup.
   const welcomeOffer = document.querySelector('#welcome-offer');
   const offerToggle = document.querySelector('.offer-toggle');
   if (welcomeOffer && offerToggle) {
-    let offerCollapsed = false;
-    try { offerCollapsed = sessionStorage.getItem('linisgo-offer-collapsed') === 'true'; } catch { /* Storage is optional. */ }
+    const offerSlot = document.createElement('div');
+    offerSlot.className = 'welcome-offer-slot';
+    const hero = document.querySelector('main .hero, main .page-hero');
+    if (hero) hero.after(offerSlot);
+    else document.querySelector('main').prepend(offerSlot);
+    offerSlot.append(welcomeOffer, offerToggle);
+    let offerCollapsed = mobile.matches;
+    try {
+      if (!mobile.matches) offerCollapsed = sessionStorage.getItem('linisgo-offer-collapsed') === 'true';
+    } catch { /* Storage is optional. */ }
+    mobile.addEventListener('change', () => {
+      if (mobile.matches) setOfferCollapsed(true, welcomeOffer.contains(document.activeElement));
+    });
     function setOfferCollapsed(collapsed, moveFocus = false) {
       welcomeOffer.hidden = collapsed;
       offerToggle.hidden = !collapsed;

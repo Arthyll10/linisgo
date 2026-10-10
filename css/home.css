@@ -473,7 +473,8 @@
   }
 }
 
-/* Non-modal welcome offer; stays above the mobile booking control. */
+/* Floating desktop offer; mobile uses an in-flow expandable card. */
+.site .welcome-offer-slot { display: contents; }
 .site .welcome-offer,
 .site .offer-toggle {
   position: fixed;
@@ -582,15 +583,29 @@
 }
 
 @media (max-width: 780px) {
+  .site .welcome-offer-slot {
+    display: block;
+    padding: 20px;
+    background: var(--cream);
+  }
 
   .site .welcome-offer,
   .site .offer-toggle {
-    left: 20px;
-    bottom: calc(96px + env(safe-area-inset-bottom));
+    position: relative;
+    left: auto;
+    bottom: auto;
+    z-index: auto;
+    width: 100%;
+    max-width: 540px;
+    margin-inline: auto;
+    box-shadow: none;
   }
 
-  .site .welcome-offer {
-    width: min(350px, calc(100% - 40px));
-    padding: 22px;
+  .site .offer-toggle {
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius);
   }
+
+  .site .welcome-offer { padding: 22px; }
 }
